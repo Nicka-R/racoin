@@ -18,3 +18,4 @@ config/config.ini
 config/db.ini
 
 composer.lock
+.env
