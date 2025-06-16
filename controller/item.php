@@ -8,8 +8,16 @@ use model\Photo;
 use model\Categorie;
 
 class item {
+    protected $annonce;
+    protected $annonceur;
+    protected $departement;
+    protected $photo;
+    protected $categItem;
+    protected $dptItem;
+
     public function __construct(){
     }
+
     function afficherItem($twig, $menu, $chemin, $n, $cat) {
 
         $this->annonce = Annonce::find($n);
@@ -18,11 +26,14 @@ class item {
             return;
         }
 
+        $categorie = Categorie::find($this->annonce->id_categorie);
+        $this->categItem = $categorie ? $categorie->nom_categorie : "Catégorie inconnue";
+
         $menu = array(
             array('href' => $chemin,
                 'text' => 'Acceuil'),
             array('href' => $chemin."/cat/".$n,
-                'text' => Categorie::find($this->annonce->id_categorie)->nom_categorie),
+                'text' => $this->categItem),
             array('href' => $chemin."/item/".$n,
             'text' => $this->annonce->titre)
         );
@@ -30,14 +41,16 @@ class item {
         $this->annonceur = Annonceur::find($this->annonce->id_annonceur);
         $this->departement = Departement::find($this->annonce->id_departement );
         $this->photo = Photo::where('id_annonce', '=', $n)->get();
-        $template = $twig->loadTemplate("item.html.twig");
-        echo $template->render(array("breadcrumb" => $menu,
+
+        echo $twig->render("item.html.twig", array(
+            "breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
             "annonceur" => $this->annonceur,
-            "dep" => $this->departement->nom_departement,
+            "dep" => $this->departement ? $this->departement->nom_departement : "Département inconnu",
             "photo" => $this->photo,
-            "categories" => $cat));
+            "categories" => $cat
+        ));
     }
 
     function supprimerItemGet($twig, $menu, $chemin,$n){
@@ -46,7 +59,7 @@ class item {
             echo "404";
             return;
         }
-        $template = $twig->loadTemplate("delGet.html.twig");
+        $template = $twig->render("delGet.html.twig");
         echo $template->render(array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce));
@@ -63,7 +76,7 @@ class item {
 
         }
 
-        $template = $twig->loadTemplate("delPost.html.twig");
+        $template = $twig->render("delPost.html.twig");
         echo $template->render(array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
@@ -77,7 +90,7 @@ class item {
             echo "404";
             return;
         }
-        $template = $twig->loadTemplate("modifyGet.html.twig");
+        $template = $twig->render("modifyGet.html.twig");
         echo $template->render(array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce));
@@ -95,7 +108,7 @@ class item {
 
         }
 
-        $template = $twig->loadTemplate("modifyPost.html.twig");
+        $template = $twig->render("modifyPost.html.twig");
         echo $template->render(array("breadcrumb" => $menu,
             "chemin" => $chemin,
             "annonce" => $this->annonce,
@@ -178,7 +191,7 @@ class item {
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
 
-            $template = $twig->loadTemplate("add-error.html.twig");
+            $template = $twig->render("add-error.html.twig");
             echo $template->render(array(
                     "breadcrumb" => $menu,
                     "chemin" => $chemin,
@@ -207,7 +220,7 @@ class item {
             $this->annonceur->annonce()->save($this->annonce);
 
 
-            $template = $twig->loadTemplate("modif-confirm.html.twig");
+            $template = $twig->render("modif-confirm.html.twig");
             echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin));
         }
     }

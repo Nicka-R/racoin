@@ -12,15 +12,18 @@ use model\Annonceur;
 use model\Photo;
 
 class viewAnnonceur {
+    protected $annonceur; // Ajout de la propriété
+
     public function __construct(){
     }
+
     function afficherAnnonceur($twig, $menu, $chemin, $n, $cat) {
-        $this->annonceur = annonceur::find($n);
+        $this->annonceur = Annonceur::find($n);
         if(!isset($this->annonceur)){
             echo "404";
             return;
         }
-        $tmp = annonce::where('id_annonceur','=',$n)->get();
+        $tmp = Annonce::where('id_annonceur','=',$n)->get();
 
         $annonces = [];
         foreach ($tmp as $a) {
@@ -32,13 +35,13 @@ class viewAnnonceur {
             }else{
                 $a->url_photo = $chemin.'/img/noimg.png';
             }
-
             $annonces[] = $a;
         }
-        $template = $twig->loadTemplate("annonceur.html.twig");
-        echo $template->render(array('nom' => $this->annonceur,
+        echo $twig->render("annonceur.html.twig", array(
+            'nom' => $this->annonceur,
             "chemin" => $chemin,
             "annonces" => $annonces,
-            "categories" => $cat));
+            "categories" => $cat
+        ));
     }
 }

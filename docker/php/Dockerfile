@@ -1,4 +1,4 @@
-FROM php:7.4
+FROM php:8.4
 
 RUN apt update 
 RUN apt install git zip unzip libxml2-dev -y
