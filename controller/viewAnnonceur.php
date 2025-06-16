@@ -35,7 +35,7 @@ class viewAnnonceur {
 
             $annonces[] = $a;
         }
-        $template = $twig->loadTemplate("annonceur.html.twig");
+        $template = $twig->render("annonceur.html.twig");
         echo $template->render(array('nom' => $this->annonceur,
             "chemin" => $chemin,
             "annonces" => $annonces,

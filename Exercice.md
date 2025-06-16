@@ -25,7 +25,7 @@ Idéalement, un fork du projet avec vos notes et les modifications que vous avez
 
 - [x] Faire marcher l'application
 - [x] Créer un mode d'emploi pour faire marcher l'application (un docker-compose par exemple ?)
-- [ ] Trouver les dépendances non maintenu
+- [x] Trouver les dépendances non maintenu
 
 ## Troisième étape - La maintenance
 

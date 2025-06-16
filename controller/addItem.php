@@ -8,15 +8,12 @@ use model\Annonceur;
 class addItem{
 
     function addItemView($twig, $menu, $chemin, $cat, $dpt){
-
-        $template = $twig->loadTemplate("add.html.twig");
-        echo $template->render(array(
-                                    "breadcrumb" => $menu,
-                                    "chemin" => $chemin,
-                                    "categories" => $cat,
-                                    "departements" => $dpt)
-                                );
-
+        echo $twig->render("add.html.twig", array(
+            "breadcrumb" => $menu,
+            "chemin" => $chemin,
+            "categories" => $cat,
+            "departements" => $dpt
+        ));
     }
 
     function addNewItem($twig, $menu, $chemin, $allPostVars){
@@ -146,7 +143,7 @@ class addItem{
         // S'il y a des erreurs on redirige vers la page d'erreur
         if (!empty($errors)) {
 
-            $template = $twig->loadTemplate("add-error.html.twig");
+            $template = $twig->render("add-error.html.twig");
             echo $template->render(array(
                                     "breadcrumb" => $menu,
                                     "chemin" => $chemin,
@@ -176,7 +173,7 @@ class addItem{
             $annonceur->annonce()->save($annonce);
 
 
-            $template = $twig->loadTemplate("add-confirm.html.twig");
+            $template = $twig->render("add-confirm.html.twig");
             echo $template->render(array("breadcrumb" => $menu, "chemin" => $chemin));
         }
     }

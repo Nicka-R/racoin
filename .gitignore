@@ -19,3 +19,4 @@ config/db.ini
 
 composer.lock
 .env
+docker/
