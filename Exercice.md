@@ -29,9 +29,9 @@ Idéalement, un fork du projet avec vos notes et les modifications que vous avez
 
 ## Troisième étape - La maintenance
 
-- [ ] Mettre à jour les versions de langages et de framework
-- [ ] Notez dans une TODO list les améliorations que vous avez en tête
-- [ ] Pour chaque idée, essayer de noter sur 10 le temps de la modification, et l'impact de la modification (2 notes donc)
+- [x] Mettre à jour les versions de langages et de framework
+- [x] Notez dans une TODO list les améliorations que vous avez en tête
+- [x] Pour chaque idée, essayer de noter sur 10 le temps de la modification, et l'impact de la modification (2 notes donc)
 
 ## Quatrième étape - Vous êtes si rapide ?
 
